@@ -47,7 +47,7 @@ On top of that, it uses **“symmetric matching”**. Given a pair of matched fe
 
 ![](Images/7.png)
 
-**Now,** here is where I come to change things. At first while using RoMa normally by importing roma\_outdoor model I got great results but I wanted to optimize every parameter of it. And so, I modified the source code of RoMa from [GitHub](https://github.com/Parskatt/RoMa) in many different ways to get the best result. At first, as I mentioned RoMa’s DINOv2, CNN and Transformer matcher are all pretrained. So, the first thing that came to my mind is training RoMa on my data, which I did (in addition to fine tuning of other parameters that I’ll soon discuss) and got great results:
+At first while using RoMa normally by importing roma\_outdoor model I got great results but I wanted to optimize every parameter of it. And so, I modified the source code of RoMa from [GitHub](https://github.com/Parskatt/RoMa) in many different ways to get the best result. At first, as I mentioned RoMa’s DINOv2, CNN and Transformer matcher are all pretrained. So, the first thing that came to my mind is training RoMa on my data, which I did (in addition to fine tuning of other parameters that I’ll soon discuss) and got great results:
 
 ![](Images/16.png)
 
