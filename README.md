@@ -33,13 +33,12 @@ m'TiFmi=0.
 
 I’ve tried assessing this problem in many ways which I will discuss here.
 
-First, I tested the naive way implemented in the given Jupiter notebook – finding keypoints with SIFT and using OpenCV to predict the fundamental matrix (which uses MAGSAC). This method performed very poorly and I realized I have to figure out how to optimize both of the main fundamental components of the project – finding keypoints and F prediction with those keypoints. 
+First, I tested the naive way – finding keypoints with SIFT and using OpenCV to predict the fundamental matrix which 8 point algorithm for each MAGSAC iteration. This method performed very poorly and I realized I have to figure out how to optimize both of the main fundamental components of the project – finding keypoints and F prediction with those keypoints. 
 
 Regarding **F prediction**, at first, I wanted to find a method that can:
 
 - Utilize training dataset
 - Utilize deep learning
-
 
 And so, I found [Deep Fundamental Matrix Estimation](https://vladlen.info/papers/deep-fundamental.pdf), which basically uses Deep Learning to find the best weights for weighted-least squares as part of finding F:![](Images/1.png) 
 
