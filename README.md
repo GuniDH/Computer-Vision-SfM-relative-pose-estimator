@@ -35,6 +35,8 @@ In computer vision, this relationship is typically expressed as the fundamental 
 matrix of rank 2. Given a 3D point Mi, in meters, and its projections on two different cameras mi and m′i, in pixels, the fundamental matrix for these two views F must satisfy
 m'TiFmi=0.
 
+**Solution:**
+
 I’ve tried assessing this problem in many ways which I will discuss here.
 
 First, I tested the naive way – finding keypoints with SIFT and using OpenCV to predict the fundamental matrix which uses 8 point algorithm for each MAGSAC iteration. MAGSAC is a RANSAC variation. I'll shortly explain how RANSAC works to find F: Given at least 8 point correspondences, 8 points will be used to calculate the hypothesis F with SVD, the other correspondences will be checked to be inliers this way: given one correspondence (x,x') we will use F to get the epipolar line in which x' lies which should be Fx. If the distance from x' to Fx is less than a specified threshold, the correspondence is an inlier. After some iterations or when we reached a specified threshold of inliers for an hypothesis, we will return the F matrix (model) with the maximal amount of inliers.
