@@ -33,7 +33,7 @@ m'TiFmi=0.
 
 I’ve tried assessing this problem in many ways which I will discuss here.
 
-First, I tested the naive way – finding keypoints with SIFT and using OpenCV to predict the fundamental matrix which 8 point algorithm for each MAGSAC iteration. This method performed very poorly and I realized I have to figure out how to optimize both of the main fundamental components of the project – finding keypoints and F prediction with those keypoints. 
+First, I tested the naive way – finding keypoints with SIFT and using OpenCV to predict the fundamental matrix which uses 8 point algorithm for each MAGSAC iteration. This method performed very poorly and I realized I have to figure out how to optimize both of the main fundamental components of the project – finding keypoints and F prediction with those keypoints. 
 
 Regarding **F prediction**, at first, I wanted to find a method that can:
 
