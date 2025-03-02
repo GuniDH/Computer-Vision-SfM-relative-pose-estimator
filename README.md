@@ -17,7 +17,7 @@ In computer vision, the transformation between 3D (world) and 2D (image) is gove
 
 In computer vision, the transformation between 3D (world) and 2D (image) is governed by projective geometry. We use the simplest camera model, that of the pinhole camera, which is illustrated below.
 
-[](Images/18.png) 
+[](Images/1.png) 
 
 the projection of a 3D point in meters, into 2D coordinates, in pixels, can be simply written as
 mi=KMi
