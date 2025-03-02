@@ -1,6 +1,6 @@
 **Computer Vision SfM relative pose estimator – Guni Deyo Haness**
 
-Part of Kaggle competition under the M.Sc. CV course, made the 3rd place out of 60 students.
+Part of Kaggle competition under the M.Sc. Computer Vision course, made the 3rd place out of 60 students.
 
 **Description:**
 
@@ -215,7 +215,7 @@ And performance is improved!
 
 **Fast kde time:       0.0016169548034667969**
 
-<b>Finally</b>, as I showed 2 pages ago my best result was <b>69.266</b> percent accuracy (mAA), which places me in the <b>3<sup>rd</sup></b> place overall (Only in terms of accuracy, as I have also improved performance but Kaggle doesn’t check that). 
+<b>Finally</b>, as I showed 2 pages ago my best result was <b>69.266</b> percent accuracy (mAA), which places me in the <b>3<sup>rd</sup></b> place overall (Only in terms of accuracy, as I have also improved performance but Kaggle doesn’t check that). Comment for the other students of the CV course reading: I'm not shown at the 3rd place in the Kaggle leaderboard because I made a late submission which was approved by the Professor due to my personal circumstances.
 
 **Best regards,**
 
