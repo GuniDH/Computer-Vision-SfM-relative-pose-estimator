@@ -39,19 +39,25 @@ The sample\_thresh parameter defines the confidence threshold – only matches w
 
 ![](Images/5.png)
 
-This prevents overconfident low-quality matches from dominating the selection process. Also, KDE **(Kernel Density Estimation)** is used to ensure an even spatial distribution of matches rather than being clustered in dense regions: ![](Images/6.png)
+This prevents overconfident low-quality matches from dominating the selection process. Also, KDE **(Kernel Density Estimation)** is used to ensure an even spatial distribution of matches rather than being clustered in dense regions:
 
+![](Images/6.png)
 
-On top of that, it uses **“symmetric matching”**. Given a pair of matched features x and x’ in 2 images A and B respectively, the confidence in the wrap field of A that x corrospondes with x’ doesn’t usually equal to the confidence in the wrap field of B that x’ corrospondes with x. Therefore, it creates symmetric wraps by creating **W\_A->B** and **W\_B->A**, then it filters out inconsistent matches that don’t mutually agree: ![](Images/7.png)
+On top of that, it uses **“symmetric matching”**. Given a pair of matched features x and x’ in 2 images A and B respectively, the confidence in the wrap field of A that x corrospondes with x’ doesn’t usually equal to the confidence in the wrap field of B that x’ corrospondes with x. Therefore, it creates symmetric wraps by creating **W\_A->B** and **W\_B->A**, then it filters out inconsistent matches that don’t mutually agree:
 
+![](Images/7.png)
 
+**Now,** here is where I come to change things. At first while using RoMa normally by importing roma\_outdoor model I got great results but I wanted to optimize every parameter of it. And so, I modified the source code of RoMa from [GitHub](https://github.com/Parskatt/RoMa) in many different ways to get the best result. At first, as I mentioned RoMa’s DINOv2, CNN and Transformer matcher are all pretrained. So, the first thing that came to my mind is training RoMa on my data, which I did (in addition to fine tuning of other parameters that I’ll soon discuss) and got great results:
 
+![](Images/8.png)
 
-**Now,** here is where I come to change things. At first while using RoMa normally by importing roma\_outdoor model I got great results but I wanted to optimize every parameter of it. And so, I modified the source code of RoMa from [GitHub](https://github.com/Parskatt/RoMa) in many different ways to get the best result. At first, as I mentioned RoMa’s DINOv2, CNN and Transformer matcher are all pretrained. So, the first thing that came to my mind is training RoMa on my data, which I did (in addition to fine tuning of other parameters that I’ll soon discuss) and got great results: ![](Images/8.png)
+But actually, my best result was with using RoMa with its pretrained parameters: 
 
-But actually, my best result was with using RoMa with its pretrained parameters: ![](Images/9.png)
+![](Images/9.png)
 
-Therefore, I removed the training part of my code from the Jupiter Notebook but I’ll show it here (Thus it’s unnecessary to submit the RoMa weights file but the code still saves it): ![](Images/10.png)
+Therefore, I removed the training part of my code from the Jupiter Notebook but I’ll show it here (Thus it’s unnecessary to submit the RoMa weights file but the code still saves it): 
+
+![](Images/10.png)
 
 
 
