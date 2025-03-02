@@ -1,6 +1,6 @@
 **Computer Vision SfM relative pose estimator – Guni Deyo Haness**
 
-Part of Kaggle competition under the M.Sc. Computer Vision course, made the 3rd place out of 60 students.
+Part of Kaggle competition under the M.Sc. Computer Vision course, made the <b>3<sup>rd</sup></b> place out of 60 students.
 
 **Description:**
 
