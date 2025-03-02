@@ -1,6 +1,35 @@
-**Computer Vision project report – Guni Deyo Haness**
+**Computer Vision SfM relative pose estimator – Guni Deyo Haness**
 
-After many long nights and over 1000ILS spent on Google Colab, I am proud to present my project!
+The process to reconstruct 3D objects and buildings from images is called Structure-from-Motion (SfM). Typically, these images are captured by skilled operators under controlled conditions, ensuring homogeneous, high-quality data. It is much more difficult to build 3D models from assorted images, given a wide variety of viewpoints, lighting and weather conditions, occlusions from people and vehicles, and even user-applied filters. The first part of the problem is to identify which parts of two images capture the same physical points of a scene, such as the corners of a window. This is typically achieved with local features (key locations in an image that can be reliably identified across different views). Local features contain short description vectors that capture the appearance around the point of interest. By comparing these descriptors, likely correspondences can be established between the pixel coordinates of image locations across two or more images. This “image registration” makes it possible to recover the 3D location of the point by triangulation.
+Problem definition
+
+The goal of the contest is to estimate the relative pose between two images. This requires some knowledge of projective and epipolar geometry, particularly with regards to the following:
+
+• The calibration matrix K captures camera properties that determine the transformation between 3D points and 2D (pixel) coordinates. It is also known as the camera intrinsics.
+• The rotation matrix R and the translation vector T capture the 6-degree-of-freedom pose (position and orientation) of the camera in a global reference frame. They are collectively known as the camera extrinsics.
+• The fundamental matrix F encapsulates the projective geometry between two views of the same scene. It is not affected by the contents in the scene, and depends only on the intrinsics and extrinsics of the two cameras.
+The training data provides K , R and T as ground truth. Participants are asked to estimate F. We explain these concepts in more detail below.
+Projective geometry
+
+In computer vision, the transformation between 3D (world) and 2D (image) is governed by projective geometry. We use the simplest camera model, that of the pinhole camera, which is illustrated below.
+
+**Projective geometry**
+
+In computer vision, the transformation between 3D (world) and 2D (image) is governed by projective geometry. We use the simplest camera model, that of the pinhole camera, which is illustrated below.
+
+[](Images/18.png) 
+
+the projection of a 3D point in meters, into 2D coordinates, in pixels, can be simply written as
+mi=KMi
+where K is the calibration matrix.
+
+**Epipolar geometry**
+
+Epipolar geometry is the projective geometry between two views. It does not depend on the structure (contents) of the scene: it depends only on the relative pose (extrinsics) and the internal camera parameters (intrinsics).
+
+In computer vision, this relationship is typically expressed as the fundamental matrix, a 3×3
+matrix of rank 2. Given a 3D point Mi, in meters, and its projections on two different cameras mi and m′i, in pixels, the fundamental matrix for these two views F must satisfy
+m'TiFmi=0.
 
 I’ve tried assessing this problem in many ways which I will discuss here.
 
