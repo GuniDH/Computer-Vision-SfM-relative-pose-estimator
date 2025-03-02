@@ -49,13 +49,63 @@ On top of that, it uses **“symmetric matching”**. Given a pair of matched fe
 
 **Now,** here is where I come to change things. At first while using RoMa normally by importing roma\_outdoor model I got great results but I wanted to optimize every parameter of it. And so, I modified the source code of RoMa from [GitHub](https://github.com/Parskatt/RoMa) in many different ways to get the best result. At first, as I mentioned RoMa’s DINOv2, CNN and Transformer matcher are all pretrained. So, the first thing that came to my mind is training RoMa on my data, which I did (in addition to fine tuning of other parameters that I’ll soon discuss) and got great results:
 
-![](Images/8.png)
+![](Images/16.png)
 
 But actually, my best result was with using RoMa with its pretrained parameters: 
 
-![](Images/9.png)
+![](Images/17.png)
 
 Therefore, I removed the training part of my code from the Jupiter Notebook but I’ll show it here (Thus it’s unnecessary to submit the RoMa weights file but the code still saves it): 
+
+![](Images/8.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+![](Images/9.png)
 
 ![](Images/10.png)
 
@@ -74,66 +124,18 @@ Therefore, I removed the training part of my code from the Jupiter Notebook but 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+But as I mentioned, testing with the pre-trained parameters has provided me with the best accuracy which makes sense after all because DINOv2 was pretrained by META and the VGG was pretrained on ImageNet. Now let’s talk about my source code modifications that have improved the accuracy. At first, I tried increasing the coarse and upscale resolutions with many combinations, hoping the matching will be more accurate and provide better accuracy, but actually the accuracy was a bit worse and performance-wise, it was very slow and computationally demanding, so I figured I should use the default values which were probably wisely chosen while validating the model over various datasets. I also tried increasing the parameter num for sample function in the source code so MAGSAC can have more data, but it was also too slow and didn’t provide better results. **But** the change which as provided me with the improvement was changing sample\_thresh. The value for it in the source code is 0.5 but I found 2.5 to work the best. Compared to the MAGSAC threshold where lower value means stricter behavior, here it’s the opposite. The higher the value the more confident a match must be to be included. In my case, a higher threshold works better which makes sense because it only picks the most reliable correspondences which can help the model to be more robust with noisy data. This helps MAGSAC because it starts with better quality correspondences where’s MAGSAC’s threshold is like a second security check to refine those sets of matched keypoints and return the F model which has the most inliers. After fine-tuning all of those, I improved the accuracy at about 2 percent from the standard RoMa model:
 
 ![](Images/11.png)
+
+To
 
 ![](Images/12.png)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-But as I mentioned, testing with the pre-trained parameters has provided me with the best accuracy which makes sense after all because DINOv2 was pretrained by META and the VGG was pretrained on ImageNet. Now let’s talk about my source code modifications that have improved the accuracy. At first, I tried increasing the coarse and upscale resolutions with many combinations, hoping the matching will be more accurate and provide better accuracy, but actually the accuracy was a bit worse and performance-wise, it was very slow and computationally demanding, so I figured I should use the default values which were probably wisely chosen while validating the model over various datasets. I also tried increasing the parameter num for sample function in the source code so MAGSAC can have more data, but it was also too slow and didn’t provide better results. **But** the change which as provided me with the improvement was changing sample\_thresh. The value for it in the source code is 0.5 but I found 2.5 to work the best. Compared to the MAGSAC threshold where lower value means stricter behavior, here it’s the opposite. The higher the value the more confident a match must be to be included. In my case, a higher threshold works better which makes sense because it only picks the most reliable correspondences which can help the model to be more robust with noisy data. This helps MAGSAC because it starts with better quality correspondences where’s MAGSAC’s threshold is like a second security check to refine those sets of matched keypoints and return the F model which has the most inliers. After fine-tuning all of those, I improved the accuracy at about 2 percent from the standard RoMa model:
+In addition to improving the accuracy I also attempted **improving the performance of the RoMa** model. Looking at the kde part in the sample function which I’ve mentioned above, I dived into the source code and saw that the function implementing kde can be improved: 
 
 ![](Images/13.png)
-
-To
-
-![](Images/14.png)
-
-
-In addition to improving the accuracy I also attempted **improving the performance of the RoMa** model. Looking at the kde part in the sample function which I’ve mentioned above, I dived into the source code and saw that the function implementing kde can be improved: ![](Images/15.png)
 
 
 
@@ -148,7 +150,9 @@ Instead of calling torch.cdist, we can compute the squared norms and use the ide
 
 We can use matrix multiplications and tensor broadcasing to implement it, which are both operations highly optimized on GPU. They do take extra space in memory but I noticed it isn’t significant at all. I also tried dividing the matches into batches and compute each batch separately in parallel to other via multiple CUDA streams, but it turned out that vectorization on the whole batch is faster.
 
-Here is the code that you need to add to the source code of the regression model in RoMa: ![](Images/16.png)
+Here is the code that you need to add to the source code of the regression model in RoMa:
+
+![](Images/14.png)
 
 
 
@@ -166,7 +170,9 @@ Here is the code that you need to add to the source code of the regression model
 
 
 
-Update sample function accordingly: ![](Images/17.png)
+Update sample function accordingly: 
+
+![](Images/15.png)
 
 
 
