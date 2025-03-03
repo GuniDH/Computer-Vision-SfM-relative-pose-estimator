@@ -1,4 +1,4 @@
-**Computer Vision SfM relative pose estimator by Guni**
+# Computer Vision SfM relative pose estimator by Guni #
 
 Part of Kaggle competition under the M.Sc. Computer Vision course, made the <b>3<sup>rd</sup></b> place out of 60 students.
 
