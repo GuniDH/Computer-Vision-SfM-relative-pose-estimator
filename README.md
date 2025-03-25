@@ -3,7 +3,7 @@
 Part of Kaggle competition under the M.Sc. Computer Vision course, made the <b>3<sup>rd</sup></b> place out of 60+ students.
 
 **Description:**
-This project uses and improves the RoMa open-source model (Regression-based Optical Matching) method for robust feature matching between image pairs. The matched features are then used to estimate the fundamental matrix through MAGSAC, a variant of RANSAC.
+This project contributes and improves the RoMa open-source model for robust feature matching between image pairs. The matched features are then used to estimate the fundamental matrix through MAGSAC, a variant of RANSAC.
 The fundamental matrix encodes the epipolar geometry between two views and is a key component for multi-view 3D reconstruction in Structure from Motion (SfM) pipelines.
 
 
