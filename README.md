@@ -3,6 +3,9 @@
 Part of Kaggle competition under the M.Sc. Computer Vision course, made the <b>3<sup>rd</sup></b> place out of 60+ students.
 
 **Description:**
+This project uses and improves the RoMa open-source model (Regression-based Optical Matching) method for robust feature matching between image pairs. The matched features are then used to estimate the fundamental matrix through MAGSAC, a variant of RANSAC.
+The fundamental matrix encodes the epipolar geometry between two views and is a key component for multi-view 3D reconstruction in Structure from Motion (SfM) pipelines.
+
 
 The process to reconstruct 3D objects and buildings from images is called Structure-from-Motion (SfM). Typically, these images are captured by skilled operators under controlled conditions, ensuring homogeneous, high-quality data. It is much more difficult to build 3D models from assorted images, given a wide variety of viewpoints, lighting and weather conditions, occlusions from people and vehicles, and even user-applied filters. The first part of the problem is to identify which parts of two images capture the same physical points of a scene, such as the corners of a window. This is typically achieved with local features (key locations in an image that can be reliably identified across different views). Local features contain short description vectors that capture the appearance around the point of interest. By comparing these descriptors, likely correspondences can be established between the pixel coordinates of image locations across two or more images. This “image registration” makes it possible to recover the 3D location of the point by triangulation.
 Problem definition
@@ -217,6 +220,130 @@ And performance is improved!
 
 <b>Finally</b>, as I showed 2 pages ago my best result was <b>69.266</b> percent accuracy (mAA), which places me in the <b>3<sup>rd</sup></b> place overall (Only in terms of accuracy, as I have also improved performance but Kaggle doesn’t check that). Comment for the other students of the CV course reading: I'm not shown at the 3rd place in the Kaggle leaderboard because I made a late submission which was approved by the Professor due to my personal circumstances.
 
-**Best regards,**
+
+## Features
+
+- Robust feature matching using RoMa's regression-based approach
+- Fundamental matrix estimation for image pairs
+- Support for outdoor scene matching optimization
+- Visualization of matched features
+- Batch processing for multiple image pairs
+
+## Installation
+
+### Prerequisites
+
+- Python 3.7 or higher
+- PyTorch 1.9 or higher
+- CUDA-compatible GPU (recommended)
+
+### Setup
+
+run setup.py or:
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/cv-sfm-pose-estimator.git
+cd cv-sfm-pose-estimator
+```
+
+2. Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Install the package in development mode:
+
+```bash
+pip install -e .
+```
+
+4. Download pre-trained weights:
+
+```bash
+python scripts/download_weights.py
+```
+
+## Usage
+
+This project provides two ways to run the SfM pose estimator:
+
+### Option 1: Basic Run Script
+
+The `run.py` script is a direct implementation of the original code. It uses fixed paths and is the simplest way to run the model:
+
+```bash
+python sfm_pose_estimator/run.py
+```
+
+By default, the script looks for data in the following locations:
+- Test images: `/content/dataset/test_images`
+- Test CSV: `/content/dataset/test.csv`
+- Submission CSV: `/content/submission.csv`
+- Model weights: `/content/roma_full_weights.pth`
+
+You can modify these paths by setting environment variables:
+
+```bash
+export TEST_DIR="path/to/test_images"
+export TEST_CSV="path/to/test.csv"
+export SUBMISSION_CSV="path/to/output.csv"
+export WEIGHTS_PTH="path/to/weights.pth"
+
+python sfm_pose_estimator/run.py
+```
+
+### Option 2: Enhanced Inference Script
+
+For more flexibility and features, use the `run_inference.py` script which provides command-line options:
+
+```bash
+python scripts/run_inference.py \
+    --test-dir path/to/images \
+    --test-csv path/to/test_pairs.csv \
+    --output-csv submission.csv \
+    --weights-dir weights \
+    --visualize
+```
+
+Key features of this script:
+- Command-line arguments for all paths
+- Optional visualization of matches
+- Better error handling and logging
+- Configurable model settings
+
+
+### CSV Format
+
+The input CSV should have the following format:
+
+```
+sample_id,batch_id,image_1_id,image_2_id
+pair_0,scene_1,image_a,image_b
+pair_1,scene_1,image_c,image_d
+...
+```
+
+The output CSV will have the following format:
+
+```
+sample_id,fundamental_matrix
+pair_0,f11 f12 f13 f21 f22 f23 f31 f32 f33
+pair_1,f11 f12 f13 f21 f22 f23 f31 f32 f33
+...
+```
+
+## Acknowledgements
+
+This project uses and improves the RoMa open-source framework, a powerful tool for robust feature matching developed by [Parskatt](https://github.com/Parskatt/RoMa).
+
+## License
+
+This project is licensed under the MIT License.
+
+
+**Author**
 
 Guni

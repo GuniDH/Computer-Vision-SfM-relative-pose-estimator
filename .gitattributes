@@ -1,2 +1,29 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+* text=auto eol=lf
+
+# Python files
+*.py text diff=python
+
+# Jupyter notebooks
+*.ipynb text
+
+# Documentation
+*.md text
+*.txt text
+
+# Specific for Windows
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pth binary
+
+# Exclude from language statistics
+weights/* linguist-vendored
+data/* linguist-vendored
+.ipynb_checkpoints/* linguist-vendored
