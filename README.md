@@ -340,10 +340,6 @@ pair_1,f11 f12 f13 f21 f22 f23 f31 f32 f33
 
 This project uses and improves the RoMa open-source framework, a powerful tool for robust feature matching developed by [Parskatt](https://github.com/Parskatt/RoMa).
 
-## License
-
-This project is licensed under the MIT License.
-
 
 **Author**
 
